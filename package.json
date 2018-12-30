@@ -1,0 +1,22 @@
+{
+  "name": "json-embedder",
+  "version": "1.0.0",
+  "description": "Tool to embed and filter jsons",
+  "main": "main.js",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "json",
+    "embed",
+    "filter",
+    "tool"
+  ],
+  "author": "Yoones Khoshghadam <yooneskh@gmail.com> (https://yooneskh.ir)",
+  "license": "ISC"
+}
