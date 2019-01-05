@@ -51,7 +51,67 @@ for (const filterFile of process.argv.slice(4)) {
     const filterResult = [];
     
     for (const doc of augmentationResult) {
-        filterResult.push(_pick(doc, filterData));
+
+        const filteredDoc = _pick(doc, filterData.fields);
+
+        if (filterData.whitelist) {
+            
+            let whitelisted = false;
+
+            for (const criteria of filterData.whitelist) {
+                
+                let found = true;
+
+                for (const k in criteria) {
+                    if (filteredDoc[k] !== criteria[k]) {
+                        found = false;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    whitelisted = true;
+                    break;
+                }
+
+            }
+
+            if (whitelisted) {
+                filterResult.push(filteredDoc);
+            }
+
+        }
+        else if (filterData.blacklist) {
+
+            let blacklisted = false;
+
+            for (const criteria of filterData.blacklist) {
+
+                let found = true;
+
+                for (const k in criteria) {
+                    if (filteredDoc[k] !== criteria[k]) {
+                        found = false;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    blacklisted = true;
+                    break;
+                }
+
+            }
+
+            if (!blacklisted) {
+                filterResult.push(filteredDoc);
+            }
+
+        }
+        else {
+            filterResult.push(filteredDoc);
+        }
+
     }
 
     fs.writeFileSync(`result-${path.parse(filterFile).name}.json`, JSON.stringify(filterResult, null, '    '));
